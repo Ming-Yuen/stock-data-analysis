@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="now" value="CURRENT_TIMESTAMP()" dbms="mysql,mariadb"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="current_timestamp" dbms="oracle"/>
+    <property name="now" value="getdate()" dbms="mssql"/>
+
+    <property name="int" value="NUMBER(10,0)" dbms="oracle"/>
+
+    <property name="date" value="TIMESTAMP(6)" dbms="oracle"/>
+
+    <property name="timestamp" value="TIMESTAMP(6)" dbms="oracle"/>
+    <property name="timestamp" value="TIMESTAMP" dbms="mssql,mariadb"/>
+
+    <property name="admin" value="liquibase"/>
+
+    <include file="db/changelog/20250812_create_table.xml"/>
+    <include file="db/changelog/20250812_insert_data.xml"/>
+</databaseChangeLog>

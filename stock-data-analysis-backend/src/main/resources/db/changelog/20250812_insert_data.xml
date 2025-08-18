@@ -1,0 +1,84 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+    <changeSet id="20250812_insert_data" author="Ming">
+        <insert tableName="menu">
+            <column name="menu_id" value="1"/>
+            <column name="name" value="Home"/>
+            <column name="icon" value="home"/>
+            <column name="path" value="/"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" value="0"/>
+            <column name="version" value="1"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="menu_id" value="2"/>
+            <column name="name" value="User"/>
+            <column name="icon" value="account_circle"/>
+            <column name="path" value="/user"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" value="0"/>
+            <column name="version" value="1"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="menu_id" value="3"/>
+            <column name="name" value="Stock Analysis"/>
+            <column name="icon" value="analytics"/>
+            <column name="path" value="/stockAnalysis"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" value="0"/>
+            <column name="version" value="1"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="menu_id" value="4"/>
+            <column name="name" value="Data Management"/>
+            <column name="icon" value="storage"/>
+            <column name="path" value="/dataManagement"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" value="0"/>
+            <column name="version" value="1"/>
+        </insert>
+        <insert tableName="menu">
+            <column name="menu_id" value="5"/>
+            <column name="parent_id" value="4"/>
+            <column name="name" value="Batch Job Maintenance"/>
+            <column name="icon" value="schedule"/>
+            <column name="path" value="/batchJobList"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" value="0"/>
+            <column name="version" value="1"/>
+        </insert>
+        <insert tableName="batch_job_configs">
+            <column name="name" value="downloadExchangeData"/>
+            <column name="config_json">
+                <![CDATA[
+                {"baseDir":"C:/Users/Administrator/Documents/Testing","filePattern":"*.csv","columns":"code,name,mic,timezone,pre_market,hour,post_market,close_date,country,country_name,reference","fieldSetMapperClass":"com.stockinsight.batch.mapper.FinnhubStockSymbolFieldSetMapper"}
+                ]]>
+            </column>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="created_by" value="${admin}"/>
+            <column name="created_at" valueDate="${now}"/>
+            <column name="updated_by" value="${admin}"/>
+            <column name="updated_at" valueDate="${now}"/>
+            <column name="is_deleted" valueNumeric="0"/>
+            <column name="version" valueNumeric="1"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
