@@ -2,7 +2,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./layouts/layout";
-import { BatchJobListPage } from "./pages/batchJobList";
+import { JobManagementPage } from "./pages/JobManagement";
 import { useFetch } from "./hooks/useApi";
 import { apiConfig } from "./apiConfig";
 import { MenuEnquiryResponse, MenuTree } from "./services/types/menu";
@@ -18,8 +18,8 @@ interface PageConfig {
 
 // 页面组件映射表 - 只需要在这里维护配置
 const PAGE_CONFIG_MAP: Record<string, PageConfig> = {
-  'batchJobList': { component: BatchJobListPage },
-  '/batchJobList': { component: BatchJobListPage },
+  'JobConfig': { component: JobManagementPage },
+  '/JobConfig': { component: JobManagementPage },
   // 在这里添加更多页面映射
   // 'stockAnalysis': { component: StockAnalysisPage },
   // '/stockAnalysis': { component: StockAnalysisPage },

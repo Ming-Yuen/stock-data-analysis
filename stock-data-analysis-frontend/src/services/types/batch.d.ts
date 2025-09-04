@@ -1,25 +1,34 @@
 import { ApiResponse } from "../../hooks/api";
 
-export interface LaunchBatchJobRequest<T> {
+export interface LaunchJobRequest<T> {
   jobName: string;
   config: T;
 }
 
-export interface EnquiryBatchJobRequest extends Record<string, unknown> {
+export interface EnquiryJobRequest extends Record<string, unknown> {
   jobName: string;
   page?: number;
   pageSize?: number;
 }
 
-export interface BatchJob {
+export type TaskGroup = 
+  | 'STOCK'
+  | 'STOCK_SCHEDULE' 
+  | 'STOCK_REPORT'
+  | 'REPORT_SCHEDULE'
+  | 'MAINTENANCE_SCHEDULE'
+  | 'DEFAULT';
+
+export interface Job {
   jobName: string;
+  taskGroup: TaskGroup;
   jobParams: { [key: string]: any };
-  isActive: boolean;
+  enabled: boolean;
   createTime: string;
 }
 
-export interface EnquiryBatchJobResponse extends ApiResponse {
-  batchJobList: BatchJob[];
+export interface EnquiryJobResponse extends ApiResponse {
+  jobTaskList: Job[];
   total: number;
   page: number;
   pageSize: number;

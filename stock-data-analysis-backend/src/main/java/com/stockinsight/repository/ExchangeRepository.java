@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ExchangeRepository extends JpaRepository<Exchange, Long> {
+    boolean existsByExchangeCode(String exchangeCode);
+
+    Exchange findByExchangeCode(Exchange exchange);
 }

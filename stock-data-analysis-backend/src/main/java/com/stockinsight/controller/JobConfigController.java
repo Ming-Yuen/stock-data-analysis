@@ -1,9 +1,9 @@
 package com.stockinsight.controller;
 
 import com.stockinsight.model.dto.stockInsight.request.EnquiryBatchJobRequest;
-import com.stockinsight.model.dto.stockInsight.request.LaunchBatchJobRequest;
-import com.stockinsight.model.dto.stockInsight.response.EnquiryBatchJobResponse;
-import com.stockinsight.service.BatchService;
+import com.stockinsight.model.dto.stockInsight.request.LaunchJobRequest;
+import com.stockinsight.model.dto.stockInsight.response.EnquiryJobResponse;
+import com.stockinsight.service.JobConfigService;
 import com.ykm.common.common_lib.model.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("batch")
+@RequestMapping("job")
 @AllArgsConstructor
 @Validated
-public class BatchController {
-    private final BatchService batchService;
+public class JobConfigController {
+    private final JobConfigService jobConfigService;
 
     @PostMapping("launch")
-    public ApiResponse launchBatchJob(@Valid @RequestBody LaunchBatchJobRequest launchBatchJobRequest){
-        batchService.launchBatchJob(launchBatchJobRequest);
+    public ApiResponse launchBatchJob(@Valid @RequestBody LaunchJobRequest launchJobRequest){
+        jobConfigService.launchBatchJob(launchJobRequest);
         return new ApiResponse();
     }
 
     @PostMapping("enquiry")
-    public EnquiryBatchJobResponse enquiry(EnquiryBatchJobRequest enquiryBatchJobRequest){
-        return batchService.enquiryBatchJob(enquiryBatchJobRequest);
+    public EnquiryJobResponse enquiry(EnquiryBatchJobRequest enquiryBatchJobRequest){
+        return jobConfigService.enquiryJobTask(enquiryBatchJobRequest);
     }
 }

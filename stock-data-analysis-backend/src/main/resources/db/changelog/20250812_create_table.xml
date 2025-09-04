@@ -4,9 +4,7 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
     <changeSet id="20250812_create_table" author="Ming">
         <createTable tableName="menu">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="menu_id" type="VARCHAR(32)"><constraints nullable="false"/></column>
             <column name="parent_id" type="VARCHAR(32)"/>
             <column name="name" type="VARCHAR(32)"><constraints nullable="false"/></column>
@@ -20,25 +18,8 @@
             <column name="remark" type="VARCHAR(255)"/>
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
-        <createTable tableName="batch_job_configs">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(32)"><constraints nullable="false"/></column>
-            <column name="config_json" type="VARCHAR(3000)"/>
-            <column name="is_active" type="${int}"><constraints nullable="false"/></column>
-            <column name="created_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
-            <column name="created_at" type="${timestamp}"><constraints nullable="false"/></column>
-            <column name="updated_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
-            <column name="updated_at" type="${timestamp}"><constraints nullable="false"/></column>
-            <column name="is_deleted" type="${int}"><constraints nullable="false"/></column>
-            <column name="remark" type="VARCHAR(255)"/>
-            <column name="version" type="${int}"><constraints nullable="false"/></column>
-        </createTable>
         <createTable tableName="stock">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="exchange_code" type="VARCHAR(10)"><constraints nullable="false"/></column>
             <column name="symbol" type="VARCHAR(32)" remarks="Unique stock ticker symbol, not null"><constraints nullable="false"/></column>
             <column name="description" type="VARCHAR(255)" remarks="Brief description of the stock or company"/>
@@ -63,9 +44,7 @@
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
         <createTable tableName="exchange">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="exchange_code" type="VARCHAR(10)"><constraints nullable="false"/></column>
             <column name="name" type="VARCHAR(50)"/>
             <column name="mic" type="VARCHAR(200)"/>
@@ -88,9 +67,7 @@
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
         <createTable tableName="market_news">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="published_at" type="VARCHAR(10)"><constraints nullable="false"/></column>
             <column name="symbol" type="VARCHAR(32)"/>
             <column name="title" type="VARCHAR(200)"/>
@@ -106,10 +83,8 @@
             <column name="remark" type="VARCHAR(255)"/>
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
-        <createTable tableName="stock_quotes">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+        <createTable tableName="stock_quote">
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="symbol" type="VARCHAR(32)"><constraints nullable="false"/></column>
             <column name="quote_date" type="${date}"><constraints nullable="false"/></column>
             <column name="open_price" type="DECIMAL(15,4)"/>
@@ -127,10 +102,8 @@
             <column name="remark" type="VARCHAR(255)"/>
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
-        <createTable tableName="stock_recommendations">
-            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
+        <createTable tableName="stock_recommendation">
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
             <column name="symbol" type="VARCHAR(32)"><constraints nullable="false"/></column>
             <column name="period" type="${date}"><constraints nullable="false"/></column>
             <column name="strong_buy" type="INT" defaultValue="0"/>
@@ -147,14 +120,66 @@
             <column name="remark" type="VARCHAR(255)"/>
             <column name="version" type="${int}"><constraints nullable="false"/></column>
         </createTable>
+        <createTable tableName="stock_event">
+            <column name="id" type="${int}" autoIncrement="true" remarks="Primary key, auto-incremented identifier"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="symbol" type="VARCHAR(10)"><constraints nullable="false"/></column>
+            <column name="company_name" type="VARCHAR(255)"/>
+            <column name="event_type" type="VARCHAR(50)"><constraints nullable="false"/></column>
+            <column name="event_subtype" type="VARCHAR(100)"/>
+            <column name="event_title" type="VARCHAR(500)"><constraints nullable="false"/></column>
+            <column name="event_description" type="TEXT"/>
+            <column name="start_date" type="DATE"/>
+            <column name="end_date" type="DATE"/>
+            <column name="event_time" type="TIME"/>
+            <column name="timezone" type="VARCHAR(50)" defaultValue="UTC"/>
+            <column name="status" type="VARCHAR(30)" defaultValue="scheduled"/>
+            <column name="impact_level" type="VARCHAR(20)" defaultValue="medium"/>
+            <column name="source" type="VARCHAR(255)"/>
+            <column name="source_url" type="TEXT"/>
+            <column name="regulatory_body" type="VARCHAR(100)"/>
+            <column name="created_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
+            <column name="created_at" type="${timestamp}"><constraints nullable="false"/></column>
+            <column name="updated_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
+            <column name="updated_at" type="${timestamp}"><constraints nullable="false"/></column>
+            <column name="is_deleted" type="${int}"><constraints nullable="false"/></column>
+            <column name="remark" type="VARCHAR(255)"/>
+            <column name="version" type="${int}"><constraints nullable="false"/></column>
+        </createTable>
+        <createTable tableName="job_config">
+            <column name="id" type="BIGINT" autoIncrement="true"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="task_name" type="VARCHAR(100)"><constraints nullable="false"/></column>
+            <column name="task_group" type="VARCHAR(50)" defaultValue="DEFAULT"><constraints nullable="false"/></column>
+            <column name="task_description" type="TEXT"><constraints nullable="true"/></column>
+            <column name="job_class_name" type="VARCHAR(255)"><constraints nullable="false"/></column>
+            <column name="cron_expression" type="VARCHAR(100)"><constraints nullable="true"/></column>
+            <column name="trigger_type" type="VARCHAR(20)" defaultValue="CRON"><constraints nullable="false"/></column>
+            <column name="config_Json" type="VARCHAR(3000)"><constraints nullable="true"/></column>
+            <column name="enabled" type="BOOLEAN" defaultValueBoolean="true"><constraints nullable="false"/></column>
+            <column name="start_time" type="TIMESTAMP"><constraints nullable="true"/></column>
+            <column name="end_time" type="TIMESTAMP"><constraints nullable="true"/></column>
+            <column name="retry_count" type="INT" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="max_retry_count" type="INT" defaultValueNumeric="3"><constraints nullable="false"/></column>
+            <column name="status" type="VARCHAR(20)" defaultValue="WAITING"><constraints nullable="false"/></column>
+            <column name="created_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
+            <column name="created_at" type="${timestamp}"><constraints nullable="false"/></column>
+            <column name="updated_by" type="VARCHAR(64)"><constraints nullable="false"/></column>
+            <column name="updated_at" type="${timestamp}"><constraints nullable="false"/></column>
+            <column name="is_deleted" type="${int}"><constraints nullable="false"/></column>
+            <column name="remark" type="VARCHAR(255)"/>
+            <column name="version" type="${int}"><constraints nullable="false"/></column>
+        </createTable>
     </changeSet>
     <changeSet id="20250812_create_unique_constraints" author="Ming">
         <addUniqueConstraint columnNames="menu_id" constraintName="UK_MENU" tableName="menu" validate="true"/>
-        <addUniqueConstraint columnNames="name" constraintName="UK_BATCH_JOB_CONFIGS" tableName="batch_job_configs" validate="true"/>
         <addUniqueConstraint columnNames="exchange_code,symbol" constraintName="UK_STOCK" tableName="stock" validate="true"/>
         <addUniqueConstraint columnNames="exchange_code" constraintName="UK_EXCHANGE" tableName="exchange" validate="true"/>
-        <addUniqueConstraint columnNames="symbol,quote_date" constraintName="UK_stock_quotes" tableName="stock_quotes" validate="true"/>
-        <addUniqueConstraint columnNames="symbol,period" constraintName="UK_stock_recommendations" tableName="stock_recommendations" validate="true"/>
+        <addUniqueConstraint columnNames="symbol,quote_date" constraintName="UK_stock_quote" tableName="stock_quote" validate="true"/>
+        <addUniqueConstraint columnNames="symbol,period" constraintName="UK_stock_recommendation" tableName="stock_recommendation" validate="true"/>
+        <addUniqueConstraint columnNames="task_name,task_group" constraintName="UK_job_config" tableName="job_config" validate="true"/>
     </changeSet>
-
+    <changeSet id="create-stock-sequence" author="developer">
+        <createSequence sequenceName="stock_id_seq"
+                        startValue="1"
+                        incrementBy="1"/>
+    </changeSet>
 </databaseChangeLog>

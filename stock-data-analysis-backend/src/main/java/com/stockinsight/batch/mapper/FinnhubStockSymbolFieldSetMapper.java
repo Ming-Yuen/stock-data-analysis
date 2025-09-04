@@ -1,8 +1,7 @@
 package com.stockinsight.batch.mapper;
 
 import com.stockinsight.model.entity.Exchange;
-import com.ykm.common.common_lib.converter.CommonTypeMapper;
-import com.ykm.common.common_lib.converter.TimeZoneConverter;
+import com.ykm.common.common_lib.converter.CommonTypeConverter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
@@ -11,7 +10,7 @@ import org.springframework.validation.BindException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class FinnhubStockSymbolFieldSetMapper implements FieldSetMapper<Exchange>, CommonTypeMapper {
+public class FinnhubStockSymbolFieldSetMapper implements FieldSetMapper<Exchange>, CommonTypeConverter {
     @Override
     public Exchange mapFieldSet(FieldSet fieldSet) throws BindException {
         Exchange dto = new Exchange();

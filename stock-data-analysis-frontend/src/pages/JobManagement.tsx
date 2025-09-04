@@ -5,7 +5,7 @@ import { PlayArrow } from "@mui/icons-material";
 import DynamicFormTable, { Column } from "../components/DynamicFormTable";
 import { useFetch, useMutate } from "../hooks/useApi";
 import { ApiResponse } from "../hooks/api";
-import { BatchJob, EnquiryBatchJobResponse } from "../services/types/batch";
+import { Job, EnquiryJobResponse } from "../services/types/batch";
 import { MenuTree } from "../services/types/menu";
 import { apiConfig } from "../apiConfig";
 
@@ -13,7 +13,7 @@ import { apiConfig } from "../apiConfig";
 const columns: Column[] = [
   { id: "jobName", label: "作業名稱", width: 200 },
   { 
-    id: "active", 
+    id: "enabled", 
     label: "狀態", 
     width: 120,
     render: (value, row, index) => {
@@ -36,7 +36,7 @@ const columns: Column[] = [
         <IconButton
           color="primary"
           size="small"
-          onClick={() => launchBatchJob.mutate({ jobName: row.jobName , jobParams: row.jobParams})}
+          onClick={() => launchBatchJob.mutate({ jobName: row.jobName , jobParams: row.jobParams, taskGroup: row.taskGroup})}
           disabled={launchBatchJob.isPending}
         >
           <PlayArrow />
@@ -46,40 +46,40 @@ const columns: Column[] = [
   }
 ];
 
-interface BatchJobListPageProps {
+interface JobManagementPageProps {
   menuTree: MenuTree;
 }
 
-export function BatchJobListPage({ menuTree }: BatchJobListPageProps) {
+export function JobManagementPage({ menuTree }: JobManagementPageProps) {
   // 分页状态
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
-  const [allData, setAllData] = useState<BatchJob[]>([]);
+  const [allData, setAllData] = useState<Job[]>([]);
   const [hasMore, setHasMore] = useState(true);
 
   // 使用 useFetch 获取数据（React Query 缓存和状态管理）
-  const { data, isLoading, isError, error } = useFetch<EnquiryBatchJobResponse>(
-    apiConfig.getBatchJobList,
+  const { data, isLoading, isError, error } = useFetch<EnquiryJobResponse>(
+    apiConfig.getJobList,
     { page, pageSize }
   );
 
   // 启动作业的 mutation
-  const launchBatchJob = useMutate<ApiResponse>(apiConfig.launchBatchJobList);
+  const launchBatchJob = useMutate<ApiResponse>(apiConfig.launchJobList);
 
   // 处理数据更新
   useEffect(() => {
-    if (data?.batchJobList) {
+    if (data?.jobTaskList) {
       if (page === 1) {
         // 第一页：重置数据
-        setAllData(data.batchJobList);
+        setAllData(data.jobTaskList);
       } else {
         // 后续页：追加数据
-        setAllData(prev => [...prev, ...data.batchJobList]);
+        setAllData(prev => [...prev, ...data.jobTaskList]);
       }
       
       // 判断是否还有更多数据
       const total = data.total || 0;
-      const currentTotal = (page - 1) * pageSize + data.batchJobList.length;
+      const currentTotal = (page - 1) * pageSize + data.jobTaskList.length;
       setHasMore(currentTotal < total);
     }
   }, [data, page, pageSize]);

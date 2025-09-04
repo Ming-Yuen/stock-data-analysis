@@ -27,7 +27,7 @@ public interface MenuConverter {
         Map<String, List<MenuEnquiryResponse.MenuTree>> childrenMenuMap = new HashMap<>();
         for(Menu menu : menuList){
             MenuEnquiryResponse.MenuTree menuTree = menuToMenuTree(menu);
-            if(StringUtils.isBlank(menu.getParentId())){
+            if(menu.getParentId() == null){
                 rootMenuList.add(menuTree);
             }else{
                 MenuEnquiryResponse.MenuTree parentMenuTree = menuMap.get(menuTree.getParentId());

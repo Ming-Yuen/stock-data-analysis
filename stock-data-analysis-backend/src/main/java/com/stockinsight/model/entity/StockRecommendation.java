@@ -1,29 +1,43 @@
 package com.stockinsight.model.entity;
 
 import com.ykm.orm.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @Entity
 public class StockRecommendation extends BaseEntity {
-    @Column(nullable = false, updatable = false)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "stock_recommendation_seq")
+    @SequenceGenerator(name = "stock_recommendation_seq", sequenceName = "stock_recommendation_id_seq", allocationSize = 50)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
+
+    @Column(name = "symbol", nullable = false, length = 30, updatable = false)
     private String symbol;
 
-    private LocalDateTime period;
+    @Column(name = "period", nullable = false, updatable = false)
+    private LocalDate period;
 
-    private BigDecimal strongBuy;
+    @Column(name = "strong_buy", nullable = false)
+    private Integer strongBuy;
 
-    private BigDecimal buy;
+    @Column(name = "buy", nullable = false)
+    private Integer buy;
 
-    private BigDecimal hold;
+    @Column(name = "hold", nullable = false)
+    private Integer hold;
 
-    private BigDecimal sell;
+    @Column(name = "sell", nullable = false)
+    private Integer sell;
 
-    private BigDecimal strongSell;
+    @Column(name = "strong_sell", nullable = false)
+    private Integer strongSell;
 
-    private BigDecimal totalRecommendations;
+    @Column(name = "total_recommendations")
+    private Integer totalRecommendations;
 }

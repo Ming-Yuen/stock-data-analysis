@@ -6,7 +6,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.StockInsight</groupId>
-    <artifactId>stockInsight</artifactId>
+    <artifactId>stock-data-analysis-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -58,6 +58,12 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-envers</artifactId>
+        </dependency>
+
+
         <!-- Excel processing dependencies -->
         <dependency>
             <groupId>org.springframework.batch.extensions</groupId>
@@ -71,11 +77,11 @@
         </dependency>
 
         <!-- Database migration -->
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>4.28.0</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.liquibase</groupId>-->
+<!--            <artifactId>liquibase-core</artifactId>-->
+<!--            <version>4.28.0</version>-->
+<!--        </dependency>-->
 
         <!-- Custom shared library -->
         <dependency>
@@ -110,6 +116,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.ib</groupId>
+            <artifactId>twsapi</artifactId>
+            <version>10.30.01</version>
+        </dependency>
+
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -139,6 +152,11 @@
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

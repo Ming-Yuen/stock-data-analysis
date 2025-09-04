@@ -3,7 +3,7 @@ export interface ApiEndpoint {
   url: string;
 }
 
-type ApiKey = "getMenu" | "getBatchJobList" | "launchBatchJobList";
+type ApiKey = "getMenu" | "getJobList" | "launchJobList";
 
 // Step 2：编写配置并用 satisfies 验证
 export const apiConfig = {
@@ -11,13 +11,13 @@ export const apiConfig = {
     method: "post",
     url: process.env.REACT_APP_MENU_ENQUIRY!,
   },
-  getBatchJobList: {
+  getJobList: {
     method: "post",
-    url: process.env.REACT_APP_BATCH_ENQUIRY!,
+    url: process.env.REACT_APP_JOB_ENQUIRY!,
   },
-  launchBatchJobList: {
+  launchJobList: {
     method: "post",
-    url: process.env.REACT_APP_BATCH_LAUNCH!,
+    url: process.env.REACT_APP_JOB_LAUNCH!,
   },
 } satisfies Record<ApiKey, ApiEndpoint>;
 

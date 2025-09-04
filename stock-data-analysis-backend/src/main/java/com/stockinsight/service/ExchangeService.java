@@ -1,5 +1,6 @@
 package com.stockinsight.service;
 
+import com.stockinsight.converter.ExchangeConverter;
 import com.stockinsight.repository.ExchangeRepository;
 import com.stockinsight.model.entity.Exchange;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,16 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ExchangeService {
     private final ExchangeRepository exchangeRepository;
+    private final ExchangeConverter exchangeConverter;
 
-    public void update(Exchange exchanges) {
-        exchangeRepository.save(exchanges);
+    public List<Exchange> getExchange(){
+        return exchangeRepository.findAll();
+    }
+
+    public void update(Exchange exchange) {
+        Exchange persisted = exchangeRepository.findByExchangeCode(exchange);
+        exchangeConverter.mergeToPersistedEntity(exchange, persisted);
+        exchangeRepository.save(persisted);
     }
 
     /**

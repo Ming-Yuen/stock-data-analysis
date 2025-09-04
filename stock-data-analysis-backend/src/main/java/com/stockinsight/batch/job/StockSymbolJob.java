@@ -1,8 +1,13 @@
 package com.stockinsight.batch.job;
 
 import com.stockinsight.batch.config.BatchJobFileParameter;
+import com.stockinsight.converter.StockConverter;
+import com.stockinsight.model.dto.finnhub.response.Symbol;
 import com.stockinsight.model.entity.Exchange;
+import com.stockinsight.model.entity.Stock;
+import com.stockinsight.service.ExchangeService;
 import com.stockinsight.service.FinnhubService;
+import com.stockinsight.service.StockService;
 import com.ykm.common.common_lib.batch.factory.CsvMultiResourceReaderFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +24,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class StockSymbolJob {
     private final FinnhubService finnhubService;
+    private final ExchangeService exchangeService;
+    private final StockService stockService;
+    private final StockConverter stockConverter;
 
     @Bean
     public Job downloadExchangeData(JobRepository jobRepository, Step downloadExchangeStep) {
@@ -56,5 +67,17 @@ public class StockSymbolJob {
                 batchJobFileParameter.getFieldSetMapperClass()
         );
         return reader;
+    }
+
+    @Bean
+    public ItemWriter<Exchange> exchangeItemWriter() {
+        return chunk -> {
+            List<Exchange> exchanges = exchangeService.getExchange();
+            for(Exchange exchange : exchanges) {
+                List<Symbol> symbols = finnhubService.getStockSymbols(exchange.getExchangeCode());
+                ArrayList<Stock> stocks = stockConverter.toStocks(symbols);
+                stockService.stockUpdate(stocks);
+            }
+        };
     }
 }

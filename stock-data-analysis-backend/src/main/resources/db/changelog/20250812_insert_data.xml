@@ -54,9 +54,9 @@
         <insert tableName="menu">
             <column name="menu_id" value="5"/>
             <column name="parent_id" value="4"/>
-            <column name="name" value="Batch Job Maintenance"/>
-            <column name="icon" value="schedule"/>
-            <column name="path" value="/batchJobList"/>
+            <column name="name" value="Job Configuration"/>
+            <column name="icon" value="jobConfig"/>
+            <column name="path" value="/JobConfig"/>
             <column name="created_by" value="${admin}"/>
             <column name="created_at" valueDate="${now}"/>
             <column name="updated_by" value="${admin}"/>
@@ -64,19 +64,62 @@
             <column name="is_deleted" value="0"/>
             <column name="version" value="1"/>
         </insert>
-        <insert tableName="batch_job_configs">
-            <column name="name" value="downloadExchangeData"/>
-            <column name="config_json">
-                <![CDATA[
-                {"baseDir":"C:/Users/Administrator/Documents/Testing","filePattern":"*.csv","columns":"code,name,mic,timezone,pre_market,hour,post_market,close_date,country,country_name,reference","fieldSetMapperClass":"com.stockinsight.batch.mapper.FinnhubStockSymbolFieldSetMapper"}
-                ]]>
-            </column>
-            <column name="is_active" valueBoolean="true"/>
+        <insert tableName="EXCHANGE">
+            <column name="EXCHANGE_CODE"        value="US"/>
+            <column name="NAME"                 value="US exchanges (NYSE, Nasdaq)"/>
+            <column name="MIC"                  value="XNYS,XASE,BATS,ARCX,XNMS,XNCM,XNGS,IEXG,XNAS, OTCM, OOTC"/>
+            <column name="TIMEZONE"             value="America/New_York"/>
+            <column name="PRE_MARKET_START_TIME"  valueDate="2025-08-19T04:00:00"/>
+            <column name="PRE_MARKET_END_TIME"    valueDate="2025-08-19T09:30:00"/>
+            <column name="REGULAR_MARKET_START_TIME" valueDate="2025-08-19T09:30:00"/>
+            <column name="REGULAR_MARKET_END_TIME"   valueDate="2025-08-19T16:00:00"/>
+            <column name="POST_MARKET_START_TIME"    valueDate="2025-08-19T16:00:00"/>
+            <column name="POST_MARKET_END_TIME"      valueDate="2025-08-19T20:00:00"/>
+            <column name="CLOSE_DATE"           value="7,0"/>
+            <column name="COUNTRY"              value="US"/>
+            <column name="REFERENCE"            value="https://www.tradinghours.com/exchanges/nyse"/>
+            <column name="CREATED_BY"           value="${admin}"/>
+            <column name="CREATED_AT"           valueDate="${now}"/>
+            <column name="UPDATED_BY"           value="${admin}"/>
+            <column name="UPDATED_AT"           valueDate="${now}"/>
+            <column name="IS_DELETED"           valueNumeric="0"/>
+            <column name="REMARK"               valueComputed="NULL"/>
+            <column name="VERSION"              valueNumeric="1"/>
+        </insert>
+<!--        <insert tableName="batch_job_config">-->
+<!--            <column name="name" value="downloadExchangeData"/>-->
+<!--            <column name="config_json">-->
+<!--                <![CDATA[-->
+<!--                {"baseDir":"C:/Users/Administrator/Documents/Testing","filePattern":"*.csv","columns":"code,name,mic,timezone,pre_market,hour,post_market,close_date,country,country_name,reference","fieldSetMapperClass":"com.stockinsight.batch.mapper.FinnhubStockSymbolFieldSetMapper"}-->
+<!--                ]]>-->
+<!--            </column>-->
+<!--            <column name="enabled" valueBoolean="true"/>-->
+<!--            <column name="created_by" value="${admin}"/>-->
+<!--            <column name="created_at" valueDate="${now}"/>-->
+<!--            <column name="updated_by" value="${admin}"/>-->
+<!--            <column name="updated_at" valueDate="${now}"/>-->
+<!--            <column name="is_deleted" valueNumeric="0"/>-->
+<!--            <column name="version" valueNumeric="1"/>-->
+<!--        </insert>-->
+        <insert tableName="job_config">
+            <column name="task_name" value="StockDailyTask"/>
+            <column name="task_group" value="SCHEDULE"/>
+            <column name="task_description" value="Daily task to update stock symbols for all exchanges"/>
+            <column name="job_class_name" value="com.stockinsight.scheduling.StockDailyTask"/>
+            <column name="cron_expression" value="0 0 6 * * ?"/>
+            <column name="trigger_type" value="CRON"/>
+            <column name="config_Json" value="{}"/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="start_time" valueDate="${now}"/>
+            <column name="retry_count" valueNumeric="0"/>
+            <column name="max_retry_count" valueNumeric="3"/>
+            <column name="status" value="WAITING"/>
             <column name="created_by" value="${admin}"/>
             <column name="created_at" valueDate="${now}"/>
             <column name="updated_by" value="${admin}"/>
             <column name="updated_at" valueDate="${now}"/>
             <column name="is_deleted" valueNumeric="0"/>
+            <column name="remark" value="Auto-generated task for daily stock data updates"/>
             <column name="version" valueNumeric="1"/>
         </insert>
 

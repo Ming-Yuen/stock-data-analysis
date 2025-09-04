@@ -17,6 +17,7 @@
 
     <property name="admin" value="liquibase"/>
 
-    <include file="db/changelog/20250812_create_table.xml"/>
+    <include file="db/changelog/quartz-schema.xml"/>
+<!--    <include file="db/changelog/20250812_create_table.xml"/>-->
     <include file="db/changelog/20250812_insert_data.xml"/>
 </databaseChangeLog>
